@@ -2,6 +2,7 @@ import React from "react";
 import { Zap, Microscope, type LucideIcon } from "lucide-react";
 import { G } from "../styles/g-color";
 import type { Mode } from "../types";
+import { useIsMobile } from '../hooks/useIsMobile';
 
 interface ModeConfig {
   id: Mode;
@@ -18,6 +19,8 @@ interface ModeSwitcherProps {
 }
 
 export const ModeSwitcher: React.FC<ModeSwitcherProps> = ({ mode, onChange }) => {
+  const isMobile = useIsMobile();
+
   const modes: ModeConfig[] = [
     { id: "super", label: "Super File Search", Icon: Zap, color: "#7B61FF", lightColor: "#F0EDFF", borderColor: "#C8BFFF" },
     { id: "advanced", label: "Advanced Search", Icon: Microscope, color: G.blue, lightColor: G.blueLight, borderColor: "#C5D9F9" },
@@ -35,12 +38,12 @@ export const ModeSwitcher: React.FC<ModeSwitcherProps> = ({ mode, onChange }) =>
             key={id}
             onClick={() => onChange(id)}
             style={{
-              display: "flex", alignItems: "center", gap: 8,
-              padding: "10px 20px", borderRadius: 10,
+              display: "flex", alignItems: "center", gap: isMobile ? 6 : 8,
+              padding: isMobile ? "8px 12px" : "10px 20px", borderRadius: 10,
               border: `1px solid ${active ? borderColor : "transparent"}`,
               background: active ? G.white : "transparent",
               color: active ? color : G.grey,
-              fontSize: 14, fontWeight: 500,
+              fontSize: isMobile ? 13 : 14, fontWeight: 500,
               fontFamily: "'Google Sans', Roboto, Arial, sans-serif",
               cursor: "pointer", transition: "all 0.2s",
               boxShadow: active ? "0 1px 4px rgba(60,64,67,0.12)" : "none",

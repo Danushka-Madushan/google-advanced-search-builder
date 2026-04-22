@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect, type FC } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import {
   Search, ExternalLink, Copy, Check, RotateCcw, Globe, Hash, Clock, Zap, Mail,
   HardDrive, AlertTriangle, ChevronRight, Link2, Layers, Tag, Folder
@@ -14,25 +14,10 @@ import { InputField } from "./components/InputField";
 import { Section } from "./components/Section";
 import { ActiveChip } from "./components/ActiveChip";
 import { ModeSwitcher } from "./components/ModeSwitcher";
-
-/** 
- * Responsive hook
- * Returns true when viewport width < breakpoint (default 640 px = "sm")
-*/
-const useIsMobile = (breakpoint = 640): boolean => {
-  const [isMobile, setIsMobile] = useState<boolean>(
-    () => typeof window !== "undefined" ? window.innerWidth < breakpoint : false
-  );
-  useEffect(() => {
-    const handler = () => setIsMobile(window.innerWidth < breakpoint);
-    window.addEventListener("resize", handler, { passive: true });
-    return () => window.removeEventListener("resize", handler);
-  }, [breakpoint]);
-  return isMobile;
-}
+import { useIsMobile } from './hooks/useIsMobile';
 
 /* App */
-const App: FC = () => {
+const App: React.FC = () => {
   const isMobile = useIsMobile();
 
   const [searchText, setSearchText] = useState<string>("");
@@ -207,8 +192,9 @@ const App: FC = () => {
           <div style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between",
-            gap: 8,
+            justifyContent: isMobile ? "center" : "space-between",
+            flexWrap: "wrap",
+            gap: 12,
             padding: "4px 0",
           }}>
             <ModeSwitcher mode={mode} onChange={handleModeChange} />
@@ -492,7 +478,7 @@ const App: FC = () => {
               {/* Card body */}
               <div style={{ padding: isMobile ? "16px 16px 20px" : "20px 24px 28px", display: "flex", flexDirection: "column", gap: isMobile ? 14 : 20 }}>
                 {/* Info banner */}
-                <div style={{ fontSize: isMobile ? 12 : 13, color: "#3D0099", background: "#F5F2FF", borderRadius: 8, padding: "12px 14px", border: "1px solid #DDD8FF", fontFamily: "'Google Sans', Roboto, Arial, sans-serif", lineHeight: 1.7 }}>
+                <div style={{ fontSize: isMobile ? 12 : 13, textAlign: "justify", color: "#3D0099", background: "#F5F2FF", borderRadius: 8, padding: "12px 14px", border: "1px solid #DDD8FF", fontFamily: "'Google Sans', Roboto, Arial, sans-serif", lineHeight: 1.7 }}>
                   Finds direct download links in open directory listings using{" "}
                   <code style={{ fontFamily: "'Roboto Mono', monospace", background: "#EDE9FF", color: "#5B21B6", padding: "2px 6px", borderRadius: 4, fontSize: 11 }}>
                     intitle:index.of
@@ -605,7 +591,7 @@ const App: FC = () => {
           {/* ADVANCED SEARCH MODE — Operator Sections */}
           {mode === "advanced" && (
             <>
-              {/* 2. Basic Operators */}
+              {/* Basic Operators */}
               <Section title="Basic Operators" icon={Hash} theme="blue">
                 <InputField label="Exact Phrase" badge={`"phrase"`} value={ops.exactPhrase} onChange={v => setOp("exactPhrase", v)}
                   placeholder="e.g. steve jobs" hint='Wraps in quotes — matches exact word order' themeColor={G.blue} themeLight={G.blueLight} />
@@ -622,11 +608,11 @@ const App: FC = () => {
                     Number Range
                     <span style={css.badge(G.blueLight, "#1967D2", "#C5D9F9")}>#..#</span>
                   </label>
-                  <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                  <div style={{ display: "flex", flexWrap: isMobile ? "wrap" : undefined, gap: isMobile ? 6 : 10, alignItems: "center" }}>
                     <input type="text" value={ops.numberFrom} onChange={e => setOp("numberFrom", e.target.value)}
                       onFocus={() => setNumFromF(true)} onBlur={() => setNumFromF(false)}
                       placeholder="From" style={{ flex: 1, ...mkInput(numFromF) }} />
-                    <span style={{ fontFamily: "'Roboto Mono', monospace", color: G.grey, fontWeight: 700, fontSize: 18, flexShrink: 0 }}>..</span>
+                    {!isMobile && <span style={{ fontFamily: "'Roboto Mono', monospace", color: G.grey, fontWeight: 700, fontSize: isMobile ? 16 : 18, flexShrink: 0 }}>..</span>}
                     <input type="text" value={ops.numberTo} onChange={e => setOp("numberTo", e.target.value)}
                       onFocus={() => setNumToF(true)} onBlur={() => setNumToF(false)}
                       placeholder="To" style={{ flex: 1, ...mkInput(numToF) }} />
@@ -640,15 +626,17 @@ const App: FC = () => {
                     Price Search
                     <span style={css.badge(G.blueLight, "#1967D2", "#C5D9F9")}>$ / Rs</span>
                   </label>
-                  <div style={{ display: "flex", gap: 8 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                     <select
                       value={ops.priceCurrency} onChange={e => setOp("priceCurrency", e.target.value)}
-                      style={{ padding: "11px 12px", borderRadius: 8, border: `1px solid ${G.border}`, fontFamily: "'Google Sans', Roboto, Arial, sans-serif", fontSize: 16, color: G.black, background: G.white, cursor: "pointer", flexShrink: 0 }}
+                      style={{ padding: "11px 12px", borderRadius: 8, border: `1px solid ${G.border}`, fontFamily: "'Google Sans', Roboto, Arial, sans-serif", fontSize: 14, color: G.black, background: G.white, cursor: "pointer", flexShrink: 0 }}
                     >
                       <option value="$">$ USD</option>
                       <option value="Rs">Rs LKR</option>
                     </select>
-                    <InputField label="" value={ops.priceValue} onChange={v => setOp("priceValue", v)} placeholder="e.g. 500" themeColor={G.blue} themeLight={G.blueLight} />
+                    <div style={{ flex: 1 }}>
+                      <InputField label="" value={ops.priceValue} onChange={v => setOp("priceValue", v)} placeholder="e.g. 500" themeColor={G.blue} themeLight={G.blueLight} />
+                    </div>
                   </div>
                   <p style={css.hint}>Search for products at a specific price</p>
                 </div>
@@ -706,9 +694,9 @@ const App: FC = () => {
                     <div style={{
                       display: "flex", alignItems: "center", gap: 4,
                       background: G.yellowLight, border: "1px solid #FDE293",
-                      padding: "9px 14px", borderRadius: 8,
+                      padding: isMobile ? "8px 12px" : "9px 14px", borderRadius: 8,
                       flexShrink: 0,
-                      alignSelf: isMobile ? "flex-start" : "auto",
+                      alignSelf: isMobile ? "center" : "auto",
                     }}>
                       <span style={{ fontSize: 13, color: "#B05E00", fontFamily: "'Roboto Mono', monospace", fontWeight: 700 }}>AROUND</span>
                       <span style={{ color: G.grey, fontSize: 14 }}>(</span>
