@@ -1,0 +1,18 @@
+export const G = {
+  blue: "#4285F4",
+  blueLight: "#E8F0FE",
+  blueDark: "#1A73E8",
+  red: "#EA4335",
+  redLight: "#FCE8E6",
+  green: "#34A853",
+  greenLight: "#E6F4EA",
+  greenDark: "#137333",
+  yellow: "#FBBC04",
+  yellowLight: "#FEF7E0",
+  white: "#FFFFFF",
+  black: "#202124",
+  grey: "#9AA0A6",
+  greyLight: "#F1F3F4",
+  border: "#DADCE0",
+  textSecondary: "#7a7a7a",
+};

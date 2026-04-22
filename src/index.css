@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Roboto:wght@400;500&family=Roboto+Mono:wght@400;600&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+input::placeholder {
+  color: #9AA0A6;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+}
