@@ -532,7 +532,7 @@ const App: React.FC = () => {
                   display: "flex",
                   flexDirection: isMobile ? "column" : "row",
                   gap: isMobile ? 10 : 12,
-                  alignItems: isMobile ? "stretch" : "flex-end",
+                  alignItems: isMobile ? "stretch" : "center",
                 }}>
                   <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
                     <label style={{ ...css.label, fontWeight: 600, color: "#5B21B6", textTransform: "uppercase", letterSpacing: "0.07em", fontSize: 12 }}>
