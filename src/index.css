@@ -4,6 +4,23 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove iOS inner shadow on inputs */
+input[type="text"],
+input[type="number"],
+select {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 input::placeholder {
   color: #9AA0A6;
 }
@@ -11,4 +28,10 @@ input::placeholder {
 select {
   appearance: none;
   -webkit-appearance: none;
+}
+
+@media (max-width: 640px) {
+  .g-section-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
