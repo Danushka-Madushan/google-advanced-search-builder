@@ -393,24 +393,31 @@ const App: FC = () => {
                     {query.trim() || <span style={{ color: G.grey, fontStyle: "italic" }}>No query yet…</span>}
                   </div>
                 </div>
+
                 {/* Full URL */}
                 <div style={{ padding: isMobile ? "12px 14px" : "14px 20px" }}>
                   <p style={{ fontSize: 11, fontWeight: 600, color: G.grey, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 8, fontFamily: "'Google Sans', Roboto, Arial, sans-serif" }}>
                     Full URL
                   </p>
-                  {/* On mobile: URL box full-width, then Copy+Open side-by-side below */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                    <div style={{ fontFamily: "'Roboto Mono', monospace", fontSize: isMobile ? 11 : 12, background: "#F8F9FA", borderRadius: 8, padding: "12px 14px", wordBreak: "break-all", border: `1px solid ${G.border}`, minHeight: 42 }}>
+                  {/* Layout fix: Row on desktop (inline), Column on mobile (stacked) */}
+                  <div style={{
+                    display: "flex",
+                    flexDirection: isMobile ? "column" : "row",
+                    alignItems: isMobile ? "stretch" : "center",
+                    gap: 10
+                  }}>
+                    {/* URL Box: flex: 1 allows it to fill available space on desktop */}
+                    <div style={{ flex: 1, fontFamily: "'Roboto Mono', monospace", fontSize: isMobile ? 11 : 12, background: "#F8F9FA", borderRadius: 8, padding: "12px 14px", wordBreak: "break-all", border: `1px solid ${G.border}`, minHeight: 42 }}>
                       {query.trim()
                         ? <><span style={{ color: G.grey }}>{GOOGLE_BASE}</span><span style={{ color: G.blue }}>{encodeURIComponent(query)}</span></>
                         : <span style={{ color: G.grey, fontStyle: "italic" }}>Enter a search to generate URL…</span>}
                     </div>
+
+                    {/* Buttons: Always sit side-by-side in a row now */}
                     <div style={{
                       display: "flex",
-                      /* Mobile: row (Copy | Open side by side); Desktop: column (stacked) */
-                      flexDirection: isMobile ? "row" : "column",
-                      gap: isMobile ? 8 : 6,
-                      alignSelf: isMobile ? "stretch" : "flex-end",
+                      flexDirection: "row",
+                      gap: isMobile ? 8 : 10,
                     }}>
                       <button
                         onClick={handleCopy} disabled={!query.trim()}
