@@ -116,7 +116,7 @@ const App: FC = () => {
   /* ─ Render ─ */
   return (
     <div style={{ background: "#F8F9FA", minHeight: "100vh", fontFamily: "'Google Sans', Roboto, Arial, sans-serif" }}>
-      <div style={{ maxWidth: 900, margin: "0 auto", padding: "48px 24px 80px", display: "flex", flexDirection: "column", gap: 16 }}>
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "48px 24px 30px", display: "flex", flexDirection: "column", gap: 16 }}>
 
         {/* ─ Header ─ */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, paddingBottom: 8 }}>
@@ -634,8 +634,18 @@ const App: FC = () => {
         {/* Footer */}
         <div style={{ textAlign: "center", fontSize: 12, color: G.grey, paddingTop: 8, fontFamily: "'Google Sans', Roboto, Arial, sans-serif" }}>
           Google Advanced Search Builder · All operators sourced from Google's official documentation
+          <div style={{ marginTop: 8 }}>
+            Made with ❤️ by{" "}
+            <a
+              href="https://github.com/Danushka-Madushan/google-advanced-search-builder"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: G.blue, textDecoration: "none" }}
+            >
+              Danushka Madushan
+            </a>
+          </div>
         </div>
-
       </div>
     </div>
   );
