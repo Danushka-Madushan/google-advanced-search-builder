@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { ChevronDown, ChevronUp, type LucideIcon } from "lucide-react";
 import { G } from "../styles/g-color";
 import { css, SECTION_THEMES } from "../styles/cssHelpers";
-import { useIsMobile } from '../hooks/useIsMobile';
 
 interface SectionProps {
   title: string;
@@ -11,10 +10,10 @@ interface SectionProps {
   defaultOpen?: boolean;
   theme?: keyof typeof SECTION_THEMES;
   warningBadge?: string;
+  isMobile: boolean;
 }
 
-export const Section: React.FC<SectionProps> = ({ title, icon: Icon, children, defaultOpen = false, theme = "blue", warningBadge }) => {
-  const isMobile = useIsMobile();
+export const Section: React.FC<SectionProps> = ({ title, icon: Icon, children, defaultOpen = false, theme = "blue", warningBadge, isMobile }) => {
   const [open, setOpen] = useState(defaultOpen);
   const [hovered, setHovered] = useState(false);
   const t = SECTION_THEMES[theme] ?? SECTION_THEMES.blue;

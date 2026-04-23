@@ -2,7 +2,6 @@ import React from "react";
 import { Zap, Microscope, type LucideIcon } from "lucide-react";
 import { G } from "../styles/g-color";
 import type { Mode } from "../types";
-import { useIsMobile } from '../hooks/useIsMobile';
 
 interface ModeConfig {
   id: Mode;
@@ -16,11 +15,10 @@ interface ModeConfig {
 interface ModeSwitcherProps {
   mode: Mode;
   onChange: (mode: Mode) => void;
+  isMobile: boolean;
 }
 
-export const ModeSwitcher: React.FC<ModeSwitcherProps> = ({ mode, onChange }) => {
-  const isMobile = useIsMobile();
-
+export const ModeSwitcher: React.FC<ModeSwitcherProps> = ({ mode, onChange, isMobile }) => {
   const modes: ModeConfig[] = [
     { id: "super", label: "Super File Search", Icon: Zap, color: "#7B61FF", lightColor: "#F0EDFF", borderColor: "#C8BFFF" },
     { id: "advanced", label: "Advanced Search", Icon: Microscope, color: G.blue, lightColor: G.blueLight, borderColor: "#C5D9F9" },

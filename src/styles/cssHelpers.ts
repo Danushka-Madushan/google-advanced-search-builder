@@ -8,7 +8,7 @@ export const css = {
     borderRadius: 8,
     border: `1px solid ${focused ? borderColor : G.border}`,
     outline: "none",
-    fontSize: 14,
+    fontSize: 15,
     fontFamily: "'Google Sans', Roboto, Arial, sans-serif",
     color: G.black,
     background: G.white,
