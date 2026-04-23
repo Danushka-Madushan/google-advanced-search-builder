@@ -4,7 +4,7 @@ import type { FileTypeConfig, SearchOperators } from "../types";
 export const GOOGLE_BASE = "https://www.google.com/search?q=";
 
 export const OPEN_DIR_EXCLUSIONS =
-  `-inurl:(jsp|pl|php|html|aspx|htm|cf|shtml) intitle:index.of -inurl:(listen77|mp3raid|mp3toss|mp3drug|index_of|index-of|wallywashis|downloadmana)`;
+  `-inurl:(search|find|list|view|index|?|&) -inurl:(jsp|pl|php|html|aspx|htm|cf|shtml) -inurl:(listen77|mp3raid|mp3toss|mp3drug|index_of|index-of|wallywashis|downloadmana)`;
 
 export const FILE_TYPES: FileTypeConfig[] = [
   { label: "TV / Movies", value: "mkv|mp4|avi|mov|mpg|wmv|divx|mpeg", Icon: Film },

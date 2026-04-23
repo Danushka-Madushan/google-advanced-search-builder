@@ -1,7 +1,5 @@
 import type { SearchOperators } from "../types";
-
-const OPEN_DIR_EXCLUSIONS =
-  `-inurl:(jsp|pl|php|html|aspx|htm|cf|shtml) intitle:index.of -inurl:(listen77|mp3raid|mp3toss|mp3drug|index_of|index-of|wallywashis|downloadmana)`;
+import { OPEN_DIR_EXCLUSIONS } from "../constants";
 
 export const buildQuery = (text: string, ops: SearchOperators): string => {
   const parts: string[] = [];
@@ -43,5 +41,9 @@ export const buildQuery = (text: string, ops: SearchOperators): string => {
 export const buildSFSQuery = (q: string, ft: string): string => {
   const base = q.trim();
   if (!base) return "";
-  return ft ? `${base} +(${ft}) ${OPEN_DIR_EXCLUSIONS}` : `${base} ${OPEN_DIR_EXCLUSIONS}`;
+
+  const dork = 'intitle:"index of /" "Parent Directory" "Name" "Last modified" "Size"';
+  const filePart = ft ? `+(${ft})` : "";
+
+  return `${base} ${dork} ${filePart} ${OPEN_DIR_EXCLUSIONS}`.trim().replace(/\s+/g, " ");
 };

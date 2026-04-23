@@ -86,7 +86,7 @@ const SuperFileSearch: React.FC<SuperFileSearchProps> = ({
           fontFamily: "'Google Sans', Roboto, Arial, sans-serif",
           lineHeight: 1.7
         }}>
-          Finds direct download links in open directory listings using{" "}
+          Finds authentic direct download links in open directories using{" "}
           <code style={{
             fontFamily: "'Roboto Mono', monospace",
             background: "#EDE9FF",
@@ -95,9 +95,9 @@ const SuperFileSearch: React.FC<SuperFileSearchProps> = ({
             borderRadius: 4,
             fontSize: 11
           }}>
-            intitle:index.of
+            intitle:"index of /"
           </code>{" "}
-          and file-type filtering. Select a category then enter your search term.
+          and verification headers like <code style={{ fontSize: 11 }}>Parent Directory</code>.
         </div>
 
         {/* File type pills */}
